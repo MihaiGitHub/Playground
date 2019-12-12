@@ -38,3 +38,25 @@ doWorkPromise.then((result) => {
     // .catch only gets executed when things went bad, when reject is called
     console.log('Error!', error)
 })
+
+// Chaining promises
+// 1. async operation to add two numbers
+// 2. another async operation to add another to the previous result
+const add = (a, b) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(a + b)
+        }, 2000)
+    })
+}
+
+add(1, 2).then((sum) => {
+    console.log(sum)
+
+    // Return a promise from the .then callback allowing you to chain another .then on
+    return add(sum, 5)
+}).then((sum2) => {
+    console.log(sum2)
+}).catch((error) => {
+    console.log(error)
+})
